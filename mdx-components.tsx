@@ -132,27 +132,27 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // ── Custom callout components ──────────────────────────────────────
 
     TipBox: ({ children }: { children: ReactNode }) => (
-      <div className="tip-box my-4 flex items-start gap-3 rounded-lg border border-purple-200 bg-purple-100 p-4 dark:border-purple-800 dark:bg-purple-900/20">
-        <TbBulb className="mt-1 h-5 w-5 flex-shrink-0 text-purple-600 dark:text-purple-300" />
-        <div className="flex-1">{children}</div>
+      <div className="tip-box my-6 flex items-start gap-4 rounded-xl border border-purple-200 bg-purple-100/50 p-5 dark:border-purple-800/50 dark:bg-purple-900/20">
+        <TbBulb className="mt-0.5 h-6 w-6 flex-shrink-0 text-purple-600 dark:text-purple-400" />
+        <div className="flex-1 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 text-slate-800 dark:text-slate-200 leading-relaxed">{children}</div>
       </div>
     ),
     WarningBox: ({ children }: { children: ReactNode }) => (
-      <div className="warning-box my-4 flex items-start gap-3 rounded-lg border border-yellow-200 bg-yellow-100 p-4 dark:border-yellow-800 dark:bg-yellow-900/20">
-        <FiAlertCircle className="mt-1 h-5 w-5 flex-shrink-0 text-yellow-600 dark:text-yellow-300" />
-        <div className="flex-1">{children}</div>
+      <div className="warning-box my-6 flex items-start gap-4 rounded-xl border border-amber-200 bg-amber-100/50 p-5 dark:border-amber-800/50 dark:bg-amber-900/20">
+        <FiAlertCircle className="mt-0.5 h-6 w-6 flex-shrink-0 text-amber-600 dark:text-amber-400" />
+        <div className="flex-1 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 text-slate-800 dark:text-slate-200 leading-relaxed">{children}</div>
       </div>
     ),
     InfoBox: ({ children }: { children: ReactNode }) => (
-      <div className="info-box my-4 flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-100 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-        <FiInfo className="mt-1 h-5 w-5 flex-shrink-0 text-blue-600 dark:text-blue-300" />
-        <div className="flex-1">{children}</div>
+      <div className="info-box my-6 flex items-start gap-4 rounded-xl border border-blue-200 bg-blue-100/50 p-5 dark:border-blue-800/50 dark:bg-blue-900/20">
+        <FiInfo className="mt-0.5 h-6 w-6 flex-shrink-0 text-blue-600 dark:text-blue-400" />
+        <div className="flex-1 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 text-slate-800 dark:text-slate-200 leading-relaxed">{children}</div>
       </div>
     ),
     SuccessBox: ({ children }: { children: ReactNode }) => (
-      <div className="success-box my-4 flex items-start gap-3 rounded-lg border border-green-200 bg-green-100 p-4 dark:border-green-800 dark:bg-green-900/20">
-        <FiCheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-green-600 dark:text-green-300" />
-        <div className="flex-1">{children}</div>
+      <div className="success-box my-6 flex items-start gap-4 rounded-xl border border-emerald-200 bg-emerald-100/50 p-5 dark:border-emerald-800/50 dark:bg-emerald-900/20">
+        <FiCheckCircle className="mt-0.5 h-6 w-6 flex-shrink-0 text-emerald-600 dark:text-emerald-400" />
+        <div className="flex-1 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 text-slate-800 dark:text-slate-200 leading-relaxed">{children}</div>
       </div>
     ),
 

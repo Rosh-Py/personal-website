@@ -78,7 +78,7 @@ export default function RootLayout({
     .map((link) => link.href);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* JSON-LD structured data for SEO */}
         <script
