@@ -20,7 +20,7 @@ export const siteConfig = {
   title: 'Senior Product Engineer',
 
   /** Canonical site URL (no trailing slash). Used for SEO, OG tags, sitemap. */
-  url: 'https://jroshan.hashnode.dev',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://roshanj.online',
 
   /** Primary contact email. Shown in About, Footer, and blog CTAs. */
   email: 'roshanjha.ece@gmail.com',

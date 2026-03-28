@@ -1,13 +1,13 @@
 # Personal Website & Tech Blog
 
-A modern, highly-optimized personal portfolio and technical blog built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **MDX**. 
+A modern, highly-optimized personal portfolio and technical blog built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **MDX**.
 
 Designed to be a centralized, easy-to-manage platform to showcase your professional journey, technical skills, and share your knowledge through rich, markdown-based blog articles.
 
 ## ✨ Features
 
 - **Blazing Fast Performance:** Powered by Next.js Server Components and statically generated blog routes.
-- **Dynamic MDX Blog:** 
+- **Dynamic MDX Blog:**
   - Write articles in standard Markdown with JSX superpowers (`.mdx`).
   - Seamless syntax highlighting for code blocks.
   - Custom UI Callouts (`<TipBox>`, `<WarningBox>`, `<InfoBox>`, `<SuccessBox>`).
@@ -25,22 +25,38 @@ You need [Node.js](https://nodejs.org/) (version 18+ recommended) and `npm` inst
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone git@github.com:Rosh-Py/personal-website.git
    cd personal-website
    ```
 
 2. Install the dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Environment Variables
+
+If you are deploying to production with a custom domain, you should configure your site URL so that SEO meta tags and sitemaps resolve correctly.
+
+1. Copy the sample environment file:
+   ```bash
+   cp sample.env .env
+   ```
+2. Update `.env` with your actual domain:
+   ```env
+   NEXT_PUBLIC_SITE_URL="https://yourdomain.com"
+   ```
 
 ## 📝 Managing Content
 
@@ -50,20 +66,20 @@ To update your name, email, social links, resume, career milestones, or skills, 
 
 ### Writing a new Blog Post
 
-Blog posts live in the `content/blog/` directory as `.mdx` files. 
+Blog posts live in the `content/blog/` directory as `.mdx` files.
 
 1. Create a new `.mdx` file in `content/blog/` (e.g. `my-new-post.mdx`).
 2. Add the YAML Frontmatter to the top of the file:
    ```yaml
    ---
-   title: "Your Awesome Article Title"
-   date: "2026-03-28"
-   excerpt: "A short description of what this article is about."
+   title: 'Your Awesome Article Title'
+   date: '2026-03-28'
+   excerpt: 'A short description of what this article is about.'
    tags:
      - react
      - nextjs
    featured: true
-   coverImage: "/blog/your-cover-image.webp"
+   coverImage: '/blog/your-cover-image.webp'
    ---
    ```
 3. Place your images inside the `public/blog/` directory and reference them smoothly inside your post:

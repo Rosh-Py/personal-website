@@ -27,4 +27,4 @@ out
 *.sw?
 
 # secrets
-.env
+.env*
