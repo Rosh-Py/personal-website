@@ -24,9 +24,37 @@ export default function Navigation() {
 
   const toggleTheme = () => {
     const next = !isDark;
-    setIsDark(next);
-    localStorage.setItem('theme', next ? 'dark' : 'light');
-    document.documentElement.classList.toggle('dark', next);
+
+    const applyTheme = () => {
+      setIsDark(next);
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', next);
+    };
+
+    if (!('startViewTransition' in document)) {
+      applyTheme();
+      return;
+    }
+
+    const transition = document.startViewTransition(() => {
+      applyTheme();
+    });
+
+    transition.ready.then(() => {
+      const radius = Math.hypot(window.innerWidth, window.innerHeight);
+
+      document.documentElement.animate(
+        [
+          { clipPath: `circle(0px at 100% 0%)` },
+          { clipPath: `circle(${radius}px at 100% 0%)` }
+        ],
+        {
+          duration: 500,
+          easing: 'ease-in-out',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      );
+    });
   };
 
   return (

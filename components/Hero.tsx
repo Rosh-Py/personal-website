@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
       <div className="container-custom py-20 md:py-28">
-        <div className="flex items-center gap-12 max-w-4xl">
+        <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-center md:gap-12 md:text-left max-w-4xl">
           <Image
             src="/roshan.jpeg"
             alt="Roshan Kumar Jha"
@@ -29,7 +29,7 @@ export default function Hero() {
             {heroContent.intro}
           </p>
 
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-wrap justify-center gap-3 pt-2 md:justify-start">
             <Link
               href="/blog"
               className="btn-primary inline-flex items-center gap-2"
