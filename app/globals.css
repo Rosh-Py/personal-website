@@ -1,0 +1,283 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'highlight.js/styles/github.css';
+/*
+ * Dark mode: GitHub Dark theme — scoped under .dark.
+ * CSS @import can't be conditionally scoped, so we inline the token colours
+ * from highlight.js/styles/github-dark.css under the .dark selector.
+ */
+.dark .hljs { color: #c9d1d9; background: #0d1117 }
+.dark .hljs-doctag,
+.dark .hljs-keyword,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable,
+.dark .hljs-type,
+.dark .hljs-variable.language_ { color: #ff7b72 }
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.class_.inherited__,
+.dark .hljs-title.function_ { color: #d2a8ff }
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id { color: #79c0ff }
+.dark .hljs-regexp,
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string { color: #a5d6ff }
+.dark .hljs-built_in,
+.dark .hljs-symbol { color: #ffa657 }
+.dark .hljs-comment,
+.dark .hljs-code,
+.dark .hljs-formula { color: #8b949e }
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo { color: #7ee787 }
+.dark .hljs-subst { color: #c9d1d9 }
+.dark .hljs-section { color: #1f6feb; font-weight: bold }
+.dark .hljs-bullet { color: #f2cc60 }
+.dark .hljs-emphasis { color: #c9d1d9; font-style: italic }
+.dark .hljs-strong { color: #c9d1d9; font-weight: bold }
+.dark .hljs-addition { color: #aff5b4; background-color: #033a16 }
+.dark .hljs-deletion { color: #ffdcd7; background-color: #67060c }
+
+
+@layer base {
+  :root {
+    --color-primary: 59 130 246;
+    --color-secondary: 100 116 139;
+    --color-accent: 16 185 129;
+    --color-background: 255 255 255;
+    --color-surface: 248 250 252;
+    --color-text: 15 23 42;
+    --color-text-muted: 100 116 139;
+    --color-border: 226 232 240;
+  }
+
+  .dark {
+    --color-primary: 96 165 250;
+    --color-secondary: 148 163 184;
+    --color-accent: 52 211 153;
+    --color-background: 15 23 42;
+    --color-surface: 30 41 59;
+    --color-text: 248 250 252;
+    --color-text-muted: 148 163 184;
+    --color-border: 51 65 85;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  a {
+    @apply text-blue-500 underline-offset-2 hover:text-blue-600 transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-slate-700 focus:ring-2 focus:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-300 outline-none disabled:pointer-events-none disabled:bg-gray-400 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300;
+  }
+
+  .btn-secondary {
+    @apply text-blue-500 hover:text-blue-600 underline transition-colors duration-200;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-6 transition-colors duration-200 hover:bg-slate-50 focus:ring-2 focus:ring-blue-300 focus-visible:ring-2 focus-visible:ring-blue-300 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-900;
+  }
+
+  .container-custom {
+    @apply max-w-container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-20 md:py-24;
+  }
+
+  .skeleton {
+    @apply bg-gray-200 dark:bg-gray-700 animate-shimmer;
+    background: linear-gradient(90deg,
+        theme('colors.gray.200') 25%,
+        theme('colors.gray.300') 50%,
+        theme('colors.gray.200') 75%);
+    background-size: 1000px 100%;
+  }
+
+  .dark .skeleton {
+    background: linear-gradient(90deg,
+        theme('colors.gray.700') 25%,
+        theme('colors.gray.600') 50%,
+        theme('colors.gray.700') 75%);
+    background-size: 1000px 100%;
+  }
+
+  /* Blog typography */
+  .prose h2 {
+    @apply text-3xl mt-12 mb-6 font-semibold tracking-tight border-b-2 border-blue-500 pb-2;
+  }
+
+  .prose h3 {
+    @apply text-2xl mt-8 mb-4 font-semibold tracking-tight;
+  }
+
+  .prose p {
+    @apply text-lg leading-relaxed mb-4 text-slate-800 dark:text-slate-200;
+  }
+
+  .prose code {
+    @apply text-sm font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-slate-800 dark:text-slate-200;
+  }
+
+  .prose pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 pl-6 text-slate-800 dark:text-slate-200;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic mb-4 text-slate-800 dark:text-slate-200;
+  }
+
+  .prose img {
+    @apply rounded-lg my-6 w-full;
+  }
+
+  .prose a {
+    @apply text-blue-500 hover:text-blue-600 underline underline-offset-2;
+  }
+
+  .prose hr {
+    @apply border-gray-300 dark:border-gray-600 my-8;
+  }
+
+  .prose table {
+    @apply w-full my-6 border-collapse text-left text-slate-800 dark:text-slate-200;
+  }
+
+  .prose thead {
+    @apply border-b-2 border-slate-300 dark:border-slate-600;
+  }
+
+  .prose th {
+    @apply px-4 py-3 font-semibold text-sm text-slate-900 dark:text-slate-50;
+  }
+
+  .prose td {
+    @apply px-4 py-3 border-b border-slate-200 dark:border-slate-700 text-sm;
+  }
+
+  .prose tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .prose tbody tr:hover {
+    @apply bg-slate-50 dark:bg-slate-800/50;
+  }
+
+  /* Syntax highlighting (rehype-highlight) */
+  .prose pre .hljs {
+    background: transparent !important;
+    /* keep our own pre background */
+    color: inherit;
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles for keyboard navigation */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-300 ring-offset-2;
+  }
+
+  .dark *:focus-visible {
+    @apply ring-offset-slate-900;
+  }
+
+  /* Skip to content link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-500 text-white px-4 py-2 rounded-md z-50;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Responsive text clamping */
+  .text-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
