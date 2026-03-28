@@ -14,9 +14,9 @@ export default function About() {
       className="section-spacing border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
     >
       <div className="container-custom">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1.4fr] lg:items-start lg:gap-12">
           {/* Contact sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-last lg:order-none">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 dark:border-slate-800 dark:bg-slate-900">
               <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                 Contact

@@ -46,7 +46,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           <code
             className={cn(
               className,
-              'rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm dark:bg-gray-800',
+              'rounded bg-gray-100 px-1.5 py-[1px] border border-gray-200 dark:border-gray-700 font-mono text-sm dark:bg-gray-800',
             )}
           >
             {children}

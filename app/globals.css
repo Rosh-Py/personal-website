@@ -83,13 +83,28 @@
     @apply bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold tracking-tight;
+  h1 {
+    @apply text-5xl font-semibold tracking-tight;
+  }
+
+  h2 {
+    @apply text-4xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  h5, h6 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+
+  p {
+    @apply text-base leading-relaxed;
   }
 
   a {
@@ -115,7 +130,7 @@
   }
 
   .section-spacing {
-    @apply py-20 md:py-24;
+    @apply py-12 md:py-24 lg:py-32;
   }
 
   .skeleton {
@@ -149,7 +164,7 @@
   }
 
   .prose code {
-    @apply text-sm font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-slate-800 dark:text-slate-200;
+    @apply text-sm font-mono bg-gray-100 dark:bg-gray-800 px-1.5 py-[1px] rounded border border-gray-200 dark:border-gray-700 text-slate-800 dark:text-slate-200;
   }
 
   .prose pre {

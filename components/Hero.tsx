@@ -6,8 +6,8 @@ import { heroContent } from '@/data/personal';
 export default function Hero() {
   return (
     <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-      <div className="container-custom py-20 md:py-28">
-        <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-center md:gap-12 md:text-left max-w-4xl">
+      <div className="container-custom py-12 md:py-20 lg:py-28">
+        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:gap-12 md:text-left max-w-4xl">
           <Image
             src="/roshan.jpeg"
             alt="Roshan Kumar Jha"
