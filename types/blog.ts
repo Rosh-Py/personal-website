@@ -13,6 +13,8 @@ export interface BlogPost {
   coverImage?: string;
   /** Estimated reading time in minutes. */
   readingTime?: number;
+  /** Canonical URL pointing to the original post (e.g. Hashnode). */
+  canonicalUrl?: string;
 }
 
 /** Lightweight metadata returned by list queries (no content body). */
@@ -25,4 +27,5 @@ export interface BlogPostMeta {
   featured?: boolean;
   coverImage?: string;
   readingTime?: number;
+  canonicalUrl?: string;
 }

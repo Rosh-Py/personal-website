@@ -25,6 +25,11 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: `${post.title} - ${siteConfig.name}`,
     description: post.excerpt,
+    ...(post.canonicalUrl && {
+      alternates: {
+        canonical: post.canonicalUrl,
+      },
+    }),
     openGraph: {
       title: post.title,
       description: post.excerpt,

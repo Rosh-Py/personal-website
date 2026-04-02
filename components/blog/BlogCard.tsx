@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FiCalendar, FiClock } from 'react-icons/fi';
-import type { BlogPostMeta } from '@/types/blog';
+import type { PostWithoutContent } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 
 interface BlogCardProps {
-  post: BlogPostMeta;
+  post: PostWithoutContent;
 }
 
 export default function BlogCard({
