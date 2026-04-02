@@ -10,9 +10,11 @@ featured: true
 coverImage: "/blog/redux-flow.png"
 ---
 
+import reduxFlow from '@/public/blog/redux-flow.png';
+
 Have you ever thought of how the popular state management library works under the hood? If not, pause for a while and think... I'll come back to it later.
 
-<Image src="/blog/redux-flow.png" alt="Redux Unidirectional data flow" width={1600} height={400} />
+<Image src={reduxFlow} placeholder="blur" alt="Redux Unidirectional data flow" width={1600} height={840} />
 
 Before we write our own state management util, you might be thinking why not Context API instead of these state management libraries. Well, that's a very fair ask.
 

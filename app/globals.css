@@ -172,7 +172,7 @@
   }
 
   .prose pre code {
-    @apply bg-transparent p-0;
+    @apply bg-transparent p-0 border-0;
   }
 
   .prose ul,

@@ -6,7 +6,7 @@ interface EmbedProps {
 
 export default function Embed({ src, title, height = 500 }: EmbedProps) {
   return (
-    <div className="my-6 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
+    <div className="my-6 overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700" tabIndex={-1}>
       <iframe
         src={src}
         title={title}

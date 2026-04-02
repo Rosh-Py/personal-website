@@ -62,7 +62,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     pre: ({ children, className }) => (
       <pre
         className={cn(
-          'my-4 overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-800',
+          'my-4 overflow-x-auto rounded-lg bg-gray-100 p-4 border border-gray-200 dark:border-gray-700 dark:bg-gray-800',
           className,
         )}
       >
