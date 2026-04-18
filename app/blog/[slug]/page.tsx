@@ -36,6 +36,22 @@ export async function generateMetadata({ params }: PageProps) {
       type: 'article',
       publishedTime: post.date,
       tags: post.tags,
+      ...(post.coverImage && {
+        images: [
+          {
+            url: `${siteConfig.url}${post.coverImage}`,
+            alt: post.title,
+          },
+        ],
+      }),
+    },
+    twitter: {
+      card: post.coverImage ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description: post.excerpt,
+      ...(post.coverImage && {
+        images: [`${siteConfig.url}${post.coverImage}`],
+      }),
     },
   };
 }
