@@ -53,6 +53,8 @@ const MDX_IMPORTERS: Record<
     import('@/content/blog/the-idle-secret-to-faster-apps.mdx'),
   'under-the-hood-of-redux-create-a-lightweight-state-manager': () =>
     import('@/content/blog/under-the-hood-of-redux-create-a-lightweight-state-manager.mdx'),
+  'your-browser-is-doing-too-much-work': () =>
+    import('@/content/blog/your-browser-is-doing-too-much-work.mdx'),
 };
 
 export default async function BlogPostPage({ params }: PageProps) {

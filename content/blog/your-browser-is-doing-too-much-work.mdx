@@ -1,0 +1,179 @@
+---
+title: "Your Browser is Doing Too Much Work"
+date: "2026-04-18"
+excerpt: "Understanding reflows, forced layouts, and layout thrashing — and how to stop triggering them unnecessarily."
+tags:
+  - performance
+  - browser
+  - reflow
+  - layout
+featured: true
+coverImage: "/blog/browser-reflow-chalkboard.webp"
+canonicalUrl: "https://jroshan.hashnode.dev/your-browser-is-doing-too-much-work"
+---
+
+import browserRenderingPipeline from '@/public/blog/browser-rendering-pipeline.webp';
+
+# Reflows, Forced Layouts and Layout Thrashing
+
+> Every time the browser recalculates positions and dimensions on a page, it pays a performance tax. Understanding when and why this happens, and how to stop triggering it unnecessarily, is one of the most impactful optimizations you can make.
+
+---
+
+## What is a reflow?
+
+When a browser renders a page, it runs through a well-defined **rendering pipeline**. Once the DOM is built and styles are resolved, the browser must figure out the *geometry* of every element: its exact size and position on screen. This phase is called **Layout** in Chrome and Edge, or **Reflow** in Firefox. The process is effectively identical across engines.
+
+<Image src={browserRenderingPipeline} placeholder="blur" alt="Browser rendering pipeline" width={1600} height={840} />
+
+A reflow is triggered whenever the browser needs to recalculate these geometric values, usually because something in the DOM or its CSS changed. The critical thing to understand is that **layout is almost always scoped to the entire document**. Even changing one element can force the browser to re-examine every other element on the page.
+
+---
+
+## Why it matters for performance
+
+A page must produce a new frame roughly every **16 milliseconds** to maintain a smooth 60fps experience. Layout is not free. On large pages, it can easily consume 10 to 28ms per frame on its own. When layout costs exceed the frame budget, users experience janky scrolling, sluggish interactions, and stuttery animations.
+
+Chrome's **Interaction to Next Paint (INP)** metric directly captures this: the time from when a user interacts with a page to when the browser paints the resulting frame. Expensive reflows inflate this number and degrade Core Web Vitals scores.
+
+> **Rule of thumb:** Aim to avoid layout whenever possible. When you cannot, keep it cheap by reducing DOM size and batching style changes.
+
+---
+
+## What triggers a reflow?
+
+Any CSS property that affects an element's geometry will trigger layout. The most common culprits are:
+
+- `width` / `height`
+- `top` / `left` / `right` / `bottom`
+- `margin` / `padding` / `border`
+- `font-size` / `line-height`
+- `display` / `position`
+- `flexbox` and `grid` properties
+
+<TipBox>
+
+Properties like `opacity`, `transform`, and `filter` skip **layout** and **paint** steps entirely and only trigger compositing, making them ideal for animations.
+
+</TipBox>
+
+---
+
+## The problem: forced synchronous layout
+
+Normally, JavaScript runs first, and the browser schedules layout to happen afterward before the next paint. However, it is easy to accidentally force the browser to do layout *in the middle of* your JavaScript. This pattern is called a **forced synchronous layout** (or forced reflow).
+
+This happens when you **read a geometric property after writing a style change**. The browser must flush any pending style changes and immediately compute layout just to give you the current value.
+
+### Forces reflow (bad)
+
+```javascript
+function logHeight() {
+  // Write: adds a class that changes height
+  box.classList.add('expanded');
+
+  // Read: browser must now compute layout immediately!
+  const h = box.offsetHeight;
+  console.log(h);
+}
+```
+
+### No forced reflow (good)
+
+```js
+function logHeight() {
+  // Read first: uses previous frame's layout values
+  const h = box.offsetHeight;
+  console.log(h);
+
+  // Write after: browser batches this with the next layout pass
+  box.classList.add('expanded');
+}
+```
+
+The golden rule: **always batch your reads before your writes**. Read all style values at the start (the browser can serve these from the last computed layout), then apply all style changes. Never interleave the two.
+
+---
+
+## Layout thrashing: the worst case
+
+Forced synchronous layout becomes **layout thrashing** when you trigger it repeatedly in a loop, causing a read-write-read-write cycle that forces the browser to recalculate layout on every single iteration.
+
+### Classic thrashing pattern
+
+```js
+function resizeParagraphs() {
+  for (let i = 0; i < paragraphs.length; i++) {
+    // READ: forces layout because styles were written above
+    const width = box.offsetWidth;             // reflow!
+    // WRITE: invalidates layout
+    paragraphs[i].style.width = width + 'px';
+  }
+}
+```
+
+### Fixed: read once, write in bulk
+
+```js
+function resizeParagraphs() {
+  // Read ONCE outside the loop
+  const width = box.offsetWidth;
+
+  for (let i = 0; i < paragraphs.length; i++) {
+    // Only writes inside the loop, no reads
+    paragraphs[i].style.width = width + 'px';
+  }
+}
+```
+
+By moving the read outside the loop, the browser only needs to resolve layout once. The writes inside the loop are batched and applied before the next paint, not in the middle of JavaScript execution.
+
+---
+
+## Five practical strategies to avoid reflows
+
+**1. Batch reads and writes.** Follow the read-then-write pattern. Use `requestAnimationFrame` to defer visual updates to the start of a new frame, where you can safely read last-frame values and queue all writes together.
+
+**2. Use CSS transforms and opacity for animations.** Properties like `transform: translateX()` and `opacity` are handled entirely by the compositor thread and never trigger layout or paint. Avoid animating `width`, `height`, `top`, or `left` in animations.
+
+**3. Minimize DOM size.** Layout cost scales with DOM complexity. Fewer nodes means faster layout. Target fewer than 1,500 total nodes where possible and avoid deep nesting beyond 32 levels. Use virtualization libraries for long lists.
+
+**4. Use CSS containment.** The `contain: layout` property tells the browser that an element's internals do not affect anything outside it. This lets the browser scope layout work to just that subtree instead of the entire document.
+
+**5. Use DevTools to identify thrashing.** Chrome DevTools has a dedicated **Forced Reflow** insight in the Performance panel. It highlights exactly which function is causing forced synchronous layouts and shows you the call stack, making thrashing trivial to locate and fix.
+
+---
+
+## Detecting reflows in the field
+
+Lab-based profiling with DevTools is essential, but you can also catch reflows in real user sessions using the **Long Animation Frame API**. The `forcedStyleAndLayoutDuration` property on script attribution entries tells you how much time was spent on forced layout caused by a given script.
+
+```js
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    for (const script of entry.scripts) {
+      if (script.forcedStyleAndLayoutDuration > 0) {
+        console.warn(
+          'Forced layout in:',
+          script.sourceURL,
+          'Duration:',
+          script.forcedStyleAndLayoutDuration
+        );
+      }
+    }
+  }
+});
+observer.observe({ type: 'long-animation-frame', buffered: true });
+```
+
+---
+
+## The single most important habit
+
+Read first. Write after. Never mix the two inside a loop. That single discipline eliminates the most common cause of janky UIs on the web.
+
+---
+
+## Resources
+
+- [Avoid large, complex layouts and layout thrashing](https://web.dev/articles/avoid-large-complex-layouts-and-layout-thrashing)
