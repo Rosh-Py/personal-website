@@ -4,6 +4,9 @@ A modern, highly-optimized personal portfolio and technical blog built with **Ne
 
 Designed to be a centralized, easy-to-manage platform to showcase your professional journey, technical skills, and share your knowledge through rich, markdown-based blog articles.
 
+**Live Site: [roshanj.online](https://roshanj.online)**
+
+
 ## ✨ Features
 
 - **Blazing Fast Performance:** Powered by Next.js Server Components and statically generated blog routes.
